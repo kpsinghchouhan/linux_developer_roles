@@ -1,4 +1,4 @@
-# Kpsinghchouhan Linux_developer_roles Collection
+# kpsinghchouhan linux_developer_roles Collection
 
 This repository contains the `kpsinghchouhan.linux_developer_roles` Ansible Collection.
 
