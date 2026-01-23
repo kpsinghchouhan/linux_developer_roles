@@ -5,12 +5,12 @@
 
 namespace: "kpsinghchouhan"
 name: "linux_developer_roles"
-version: 1.0.0
+version: 0.1.0
 readme: README.md
 authors:
-  - your name <example@domain.com>
+  - Krishana Pal Singh Chouhan <kpsingh.chouhan@gmail.com>
 
-description: your collection description
+description: This collection provides roles to install developer tools.
 license_file: LICENSE
 
 # TO-DO: update the tags based on your content type
