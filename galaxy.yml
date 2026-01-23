@@ -5,7 +5,7 @@
 
 namespace: "kpsinghchouhan"
 name: "linux_developer_roles"
-version: 1.0.0
+version: 0.1.0
 readme: README.md
 authors:
   - Krishana Pal Singh Chouhan <kpsingh.chouhan@gmail.com>
