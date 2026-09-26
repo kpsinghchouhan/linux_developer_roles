@@ -1,0 +1,5 @@
+---
+- name: Install git package
+  ansible.builtin.package:
+    name: "{{ git_package_name }}"
+  become: true
