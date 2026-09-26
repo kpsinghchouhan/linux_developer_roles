@@ -1,0 +1,37 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.git
+
+# Git binary path
+git_bin_path: '/usr/bin/git'
+
+# Git package name
+git_package_name: 'git'
+
+# File mode of .gitconfig
+git_config_mode: '0644'
+
+# [user] section
+git_user_name: ''
+git_user_email: ''
+
+# [core] section
+git_core_editor: 'vim'
+git_core_autocrlf: 'input'
+
+# [help] section
+git_help_autocorrect: 1
+
+# [color] section
+git_color_ui: 'auto'
+
+# [push] section
+git_push_default: 'simple'
+
+# [init] section
+git_init_default_branch: 'main'
+
+# [pull] section
+git_pull_rebase: 'false'
+
+# [credential] section
+git_credential_helper: '!gh auth git-credential'

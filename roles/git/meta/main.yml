@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Krishana Pal Singh Chouhan
+  description: Install git and manage a user's ~/.gitconfig on Ubuntu and macOS.
+  company: kpsinghchouhan
+  license: GPL-2.0-or-later
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: MacOSX
+      versions:
+        - all
+
+  galaxy_tags:
+    - git
+    - developer
+    - ubuntu
+    - macos
+
+dependencies: []

@@ -1,0 +1,70 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.git
+
+argument_specs:
+  main:
+    short_description: Install git and manage the connecting user's ~/.gitconfig.
+    description:
+      - Installs git with the system package manager on Linux or Homebrew on macOS.
+      - Renders ~/.gitconfig for the connecting user from a template. The role owns the whole file.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      git_bin_path:
+        type: str
+        description: Path to the git binary. On macOS, Homebrew install is skipped when it exists.
+        default: "/usr/bin/git"
+      git_package_name:
+        type: str
+        description: Name of the git package to install.
+        default: "git"
+      git_config_mode:
+        type: str
+        description: File mode of .gitconfig.
+        default: "0644"
+      git_user_name:
+        type: str
+        description: Value of user.name. Omitted when empty.
+        default: ""
+      git_user_email:
+        type: str
+        description: Value of user.email. Omitted when empty.
+        default: ""
+      git_core_editor:
+        type: str
+        description: Value of core.editor.
+        default: "vim"
+      git_core_autocrlf:
+        type: str
+        description: Value of core.autocrlf.
+        choices: ["true", "false", "input"]
+        default: "input"
+      git_help_autocorrect:
+        type: str
+        description:
+          - Value of help.autocorrect.
+          - A number of deciseconds, or one of 'never', 'immediate', 'prompt'.
+        default: "1"
+      git_color_ui:
+        type: str
+        description: Value of color.ui.
+        choices: ["auto", "always", "true", "false", "never"]
+        default: "auto"
+      git_push_default:
+        type: str
+        description: Value of push.default.
+        choices: ["nothing", "current", "upstream", "tracking", "simple", "matching"]
+        default: "simple"
+      git_init_default_branch:
+        type: str
+        description: Value of init.defaultBranch.
+        default: "main"
+      git_pull_rebase:
+        type: str
+        description: Value of pull.rebase.
+        choices: ["true", "false", "merges", "interactive"]
+        default: "false"
+      git_credential_helper:
+        type: str
+        description: Value of credential.helper for https://github.com and https://gist.github.com.
+        default: "!gh auth git-credential"

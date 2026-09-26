@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+{% if git_user_name | length > 0 or git_user_email | length > 0 %}
+[user]
+{%   if git_user_name | length > 0 %}
+	name = {{ git_user_name }}
+{%   endif %}
+{%   if git_user_email | length > 0 %}
+	email = {{ git_user_email }}
+{%   endif %}
+{% endif %}
+[core]
+	editor = {{ git_core_editor }}
+	autocrlf = {{ git_core_autocrlf }}
+[help]
+	autocorrect = {{ git_help_autocorrect }}
+[color]
+	ui = {{ git_color_ui }}
+[push]
+	default = {{ git_push_default }}
+[init]
+	defaultBranch = {{ git_init_default_branch }}
+[credential "https://github.com"]
+	helper = 
+	helper = {{ git_credential_helper }}
+[credential "https://gist.github.com"]
+	helper = 
+	helper = {{ git_credential_helper }}
+[pull]
+	rebase = {{ git_pull_rebase }}
