@@ -1,0 +1,6 @@
+---
+bugfixes:
+  - git - write ``git_core_autocrlf`` as ``core.autocrlf`` in ``~/.gitconfig``. It was written as a second ``core.editor`` key.
+  - git - update the role argument spec to match the role's variables. It listed options the role no longer uses and was missing ``git_bin_path``, ``git_package_name``, ``git_core_autocrlf``, ``git_help_autocorrect``, ``git_color_ui``, ``git_push_default`` and ``git_credential_helper``.
+doc_changes:
+  - git - update the role README to document the current variables and requirements.
