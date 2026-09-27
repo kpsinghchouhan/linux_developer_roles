@@ -1,0 +1,13 @@
+---
+- name: Check if git is already installed
+  ansible.builtin.stat:
+    path: "{{ git_bin_path }}"
+  register: git_stat
+  ignore_errors: true
+
+- name: Install git package with Homebrew
+  community.general.homebrew:
+    name: "{{ git_package_name }}"
+    state: present
+  become: false
+  when: not git_stat.stat.exists

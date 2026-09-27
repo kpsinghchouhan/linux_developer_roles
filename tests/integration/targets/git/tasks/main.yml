@@ -1,0 +1,72 @@
+---
+- name: Create a temporary home directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: git_role
+  register: __git_test_home
+
+- name: Run the tests
+  block:
+    - name: Apply the git role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.git
+      vars:
+        git_install_package: false
+        git_config_home: "{{ __git_test_home['path'] }}"
+        git_user_name: "Test User"
+        git_user_email: "test@example.com"
+        git_aliases:
+          st: status
+        git_config_extra:
+          push:
+            autoSetupRemote: true
+
+    - name: Read the rendered .gitconfig
+      ansible.builtin.slurp:
+        src: "{{ __git_test_home['path'] }}/.gitconfig"
+      register: __git_test_config
+
+    - name: Assert that .gitconfig has the expected content
+      ansible.builtin.assert:
+        that:
+          - "'Ansible managed' in __git_test_content"
+          - "'name = Test User' in __git_test_content"
+          - "'email = test@example.com' in __git_test_content"
+          - "'defaultBranch = main' in __git_test_content"
+          - "'rebase = false' in __git_test_content"
+          - "'st = status' in __git_test_content"
+          - "'autoSetupRemote = true' in __git_test_content"
+      vars:
+        __git_test_content: "{{ __git_test_config['content'] | b64decode }}"
+
+    - name: Apply the git role a second time
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.git
+      vars:
+        git_install_package: false
+        git_config_home: "{{ __git_test_home['path'] }}"
+        git_user_name: "Test User"
+        git_user_email: "test@example.com"
+        git_aliases:
+          st: status
+        git_config_extra:
+          push:
+            autoSetupRemote: true
+
+    - name: Find backup files created by the second run
+      ansible.builtin.find:
+        paths: "{{ __git_test_home['path'] }}"
+        patterns: ".gitconfig.*"
+        hidden: true
+      register: __git_test_backups
+
+    - name: Assert that the second run changed nothing
+      ansible.builtin.assert:
+        that:
+          - __git_test_backups['matched'] == 0
+
+  always:
+    - name: Remove the temporary home directory
+      ansible.builtin.file:
+        path: "{{ __git_test_home['path'] }}"
+        state: absent

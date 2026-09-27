@@ -1,0 +1,62 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.git
+
+argument_specs:
+  main:
+    short_description: Install git and manage a user's ~/.gitconfig.
+    description:
+      - Installs git with apt on Ubuntu or Homebrew on macOS.
+      - Renders ~/.gitconfig for a user from a template. The role owns the whole file.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      git_install_package:
+        type: bool
+        description: Install the git package.
+        default: true
+      git_config_owner:
+        type: str
+        description: User whose .gitconfig is managed. Empty means the connecting user.
+        default: ""
+      git_config_home:
+        type: str
+        description: Directory in which .gitconfig is written. Empty means the owner's home directory.
+        default: ""
+      git_config_backup:
+        type: bool
+        description: Keep a timestamped backup of .gitconfig when it is changed.
+        default: true
+      git_config_mode:
+        type: str
+        description: File mode of .gitconfig.
+        default: "0644"
+      git_user_name:
+        type: str
+        description: Value of user.name. Omitted when empty.
+        default: ""
+      git_user_email:
+        type: str
+        description: Value of user.email. Omitted when empty.
+        default: ""
+      git_core_editor:
+        type: str
+        description: Value of core.editor.
+        default: "vim"
+      git_init_default_branch:
+        type: str
+        description: Value of init.defaultBranch.
+        default: "main"
+      git_pull_rebase:
+        type: bool
+        description: Value of pull.rebase.
+        default: false
+      git_aliases:
+        type: dict
+        description: Entries of the [alias] section, keyed by alias name.
+        default: {}
+      git_config_extra:
+        type: dict
+        description:
+          - Additional sections, keyed by section name, each a dict of option names to values.
+          - Subsections are written as the section name, e.g. 'diff "sopsdiffer"'.
+        default: {}
