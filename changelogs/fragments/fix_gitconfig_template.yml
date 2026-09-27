@@ -1,0 +1,6 @@
+---
+bugfixes:
+  - git - write ``git_core_autocrlf`` as ``core.autocrlf`` in ``~/.gitconfig``. It was written as a second ``core.editor`` key.
+  - git - update the role argument spec to match the role's variables.
+doc_changes:
+  - git - update the role README to document the current variables and requirements.

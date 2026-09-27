@@ -3,29 +3,21 @@
 
 argument_specs:
   main:
-    short_description: Install git and manage a user's ~/.gitconfig.
+    short_description: Install git and manage the connecting user's ~/.gitconfig.
     description:
-      - Installs git with apt on Ubuntu or Homebrew on macOS.
-      - Renders ~/.gitconfig for a user from a template. The role owns the whole file.
+      - Installs git with the system package manager on Linux or Homebrew on macOS.
+      - Renders ~/.gitconfig for the connecting user from a template. The role owns the whole file.
     author:
       - Krishana Pal Singh Chouhan
     options:
-      git_install_package:
-        type: bool
-        description: Install the git package.
-        default: true
-      git_config_owner:
+      git_bin_path:
         type: str
-        description: User whose .gitconfig is managed. Empty means the connecting user.
-        default: ""
-      git_config_home:
+        description: Path to the git binary. On macOS, Homebrew install is skipped when it exists.
+        default: "/usr/bin/git"
+      git_package_name:
         type: str
-        description: Directory in which .gitconfig is written. Empty means the owner's home directory.
-        default: ""
-      git_config_backup:
-        type: bool
-        description: Keep a timestamped backup of .gitconfig when it is changed.
-        default: true
+        description: Name of the git package to install.
+        default: "git"
       git_config_mode:
         type: str
         description: File mode of .gitconfig.
@@ -42,21 +34,37 @@ argument_specs:
         type: str
         description: Value of core.editor.
         default: "vim"
+      git_core_autocrlf:
+        type: str
+        description: Value of core.autocrlf.
+        choices: ["true", "false", "input"]
+        default: "input"
+      git_help_autocorrect:
+        type: str
+        description:
+          - Value of help.autocorrect.
+          - A number of deciseconds, or one of 'never', 'immediate', 'prompt'.
+        default: "1"
+      git_color_ui:
+        type: str
+        description: Value of color.ui.
+        choices: ["auto", "always", "true", "false", "never"]
+        default: "auto"
+      git_push_default:
+        type: str
+        description: Value of push.default.
+        choices: ["nothing", "current", "upstream", "tracking", "simple", "matching"]
+        default: "simple"
       git_init_default_branch:
         type: str
         description: Value of init.defaultBranch.
         default: "main"
       git_pull_rebase:
-        type: bool
+        type: str
         description: Value of pull.rebase.
-        default: false
-      git_aliases:
-        type: dict
-        description: Entries of the [alias] section, keyed by alias name.
-        default: {}
-      git_config_extra:
-        type: dict
-        description:
-          - Additional sections, keyed by section name, each a dict of option names to values.
-          - Subsections are written as the section name, e.g. 'diff "sopsdiffer"'.
-        default: {}
+        choices: ["true", "false", "merges", "interactive"]
+        default: "false"
+      git_credential_helper:
+        type: str
+        description: Value of credential.helper for https://github.com and https://gist.github.com.
+        default: "!gh auth git-credential"
