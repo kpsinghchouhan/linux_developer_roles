@@ -1,0 +1,13 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.gh
+
+# GitHub CLI package name
+gh_package_name: 'gh'
+
+# Package state: 'present' or 'latest'
+gh_package_state: 'present'
+
+# GitHub CLI apt repository (Ubuntu)
+gh_apt_keyring_url: 'https://cli.github.com/packages/githubcli-archive-keyring.gpg'
+gh_apt_keyring_path: '/etc/apt/keyrings/githubcli-archive-keyring.gpg'
+gh_apt_repo_url: 'https://cli.github.com/packages'

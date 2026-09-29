@@ -1,0 +1,32 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.gh
+
+argument_specs:
+  main:
+    short_description: Install GitHub CLI (gh).
+    description:
+      - Installs gh from the GitHub CLI apt repository on Ubuntu or with Homebrew on macOS.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      gh_package_name:
+        type: str
+        description: Name of the GitHub CLI package to install.
+        default: "gh"
+      gh_package_state:
+        type: str
+        description: State of the package. Use 'latest' to upgrade an existing install.
+        choices: ["present", "latest"]
+        default: "present"
+      gh_apt_keyring_url:
+        type: str
+        description: URL of the GitHub CLI apt archive keyring. Ubuntu only.
+        default: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+      gh_apt_keyring_path:
+        type: str
+        description: Path where the apt archive keyring is saved. Ubuntu only.
+        default: "/etc/apt/keyrings/githubcli-archive-keyring.gpg"
+      gh_apt_repo_url:
+        type: str
+        description: URL of the GitHub CLI apt repository. Ubuntu only.
+        default: "https://cli.github.com/packages"

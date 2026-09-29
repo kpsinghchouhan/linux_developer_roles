@@ -1,0 +1,19 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Apply the gh role
+  ansible.builtin.include_role:
+    name: kpsinghchouhan.linux_developer_roles.gh
+
+- name: Run gh --version
+  ansible.builtin.command: gh --version
+  register: __gh_test_version
+  changed_when: false
+
+- name: Assert that gh is installed
+  ansible.builtin.assert:
+    that:
+      - "'gh version' in __gh_test_version['stdout']"
