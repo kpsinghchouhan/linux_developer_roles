@@ -1,0 +1,34 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Apply the claude role
+  ansible.builtin.include_role:
+    name: kpsinghchouhan.linux_developer_roles.claude
+
+- name: Run claude --version
+  ansible.builtin.command: claude --version
+  register: __claude_test_version
+  changed_when: false
+
+- name: Assert that Claude Code is installed
+  ansible.builtin.assert:
+    that:
+      - "'Claude Code' in __claude_test_version['stdout']"
+
+- name: Check Claude Desktop on macOS
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
+    - claude_desktop_install | default(true) | bool
+  block:
+    - name: Find the Claude Desktop app
+      ansible.builtin.stat:
+        path: /Applications/Claude.app
+      register: __claude_test_desktop_app
+
+    - name: Assert that Claude Desktop is installed
+      ansible.builtin.assert:
+        that:
+          - __claude_test_desktop_app['stat']['exists']

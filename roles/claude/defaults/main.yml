@@ -1,0 +1,20 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.claude
+
+# Claude Code release channel: 'stable' or 'latest'
+claude_code_channel: 'stable'
+
+
+# Claude Code package state: 'present' or 'latest'
+claude_code_package_state: 'present'
+
+# Claude Code apt repository (Ubuntu)
+claude_code_apt_repo_name: 'claude-code'
+claude_code_apt_keyring_url: 'https://downloads.claude.ai/keys/claude-code.asc'
+claude_code_apt_keyring_path: '/etc/apt/keyrings/claude-code.asc'
+claude_code_apt_repo_url: 'https://downloads.claude.ai/claude-code/apt'
+
+# Claude Desktop (macOS)
+claude_desktop_install: true
+claude_desktop_cask_name: 'claude'
+claude_desktop_package_state: 'present'

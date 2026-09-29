@@ -1,0 +1,23 @@
+---
+- name: Install Claude Code from the Claude Code apt repository
+  become: true
+  block:
+    - name: Add the Claude Code apt repository
+      ansible.builtin.deb822_repository:
+        name: "{{ claude_code_apt_repo_name }}"
+        state: present
+        types: deb
+        uris: "{{ claude_code_apt_repo_url }}"
+        suites: "{{ claude_code_channel }}"
+        components:
+          - main
+        signed_by: "{{ claude_code_apt_keyring_url }}"
+      register: __claude_code_apt_repo
+
+    - name: Install Claude Code package
+      ansible.builtin.apt:
+        name: "{{ __claude_code_package_name }}"
+        state: "{{ claude_code_package_state }}"
+        update_cache: true
+      # In check mode the repository is not really added, so the package is not found yet
+      when: not (ansible_check_mode and __claude_code_apt_repo is changed)
