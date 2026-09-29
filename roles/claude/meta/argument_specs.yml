@@ -26,10 +26,6 @@ argument_specs:
         type: str
         description: URL of the Claude Code release signing key. Ubuntu only.
         default: "https://downloads.claude.ai/keys/claude-code.asc"
-      claude_code_apt_keyring_path:
-        type: str
-        description: Path where the signing key is saved. Ubuntu only.
-        default: "/etc/apt/keyrings/claude-code.asc"
       claude_code_apt_repo_url:
         type: str
         description: Base URL of the Claude Code apt repository, without the channel. Ubuntu only.
