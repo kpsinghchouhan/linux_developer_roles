@@ -1,0 +1,6 @@
+---
+- name: Install GitHub CLI package with Homebrew
+  community.general.homebrew:
+    name: "{{ gh_package_name }}"
+    state: "{{ gh_package_state }}"
+  become: false
