@@ -1,0 +1,45 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.claude
+
+argument_specs:
+  main:
+    short_description: Install Claude Code, and Claude Desktop on macOS.
+    description:
+      - Installs Claude Code from the Claude Code apt repository on Ubuntu or with Homebrew on macOS.
+      - Installs Claude Desktop with Homebrew on macOS.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      claude_code_channel:
+        type: str
+        description:
+          - Claude Code release channel. 'stable' is typically about a week behind 'latest'.
+          - Selects the apt repository on Ubuntu and the Homebrew cask on macOS.
+        choices: ["stable", "latest"]
+        default: "stable"
+      claude_code_package_state:
+        type: str
+        description: State of the Claude Code package. Use 'latest' to upgrade an existing install.
+        choices: ["present", "latest"]
+        default: "present"
+      claude_code_apt_keyring_url:
+        type: str
+        description: URL of the Claude Code release signing key. Ubuntu only.
+        default: "https://downloads.claude.ai/keys/claude-code.asc"
+      claude_code_apt_repo_url:
+        type: str
+        description: Base URL of the Claude Code apt repository, without the channel. Ubuntu only.
+        default: "https://downloads.claude.ai/claude-code/apt"
+      claude_desktop_install:
+        type: bool
+        description: Whether to install Claude Desktop. macOS only.
+        default: true
+      claude_desktop_cask_name:
+        type: str
+        description: Name of the Claude Desktop Homebrew cask. macOS only.
+        default: "claude"
+      claude_desktop_package_state:
+        type: str
+        description: State of the Claude Desktop cask. Use 'latest' to upgrade an existing install. macOS only.
+        choices: ["present", "latest"]
+        default: "present"

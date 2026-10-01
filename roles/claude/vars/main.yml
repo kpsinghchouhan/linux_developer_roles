@@ -1,0 +1,8 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.claude
+
+# Claude Code apt package (Ubuntu)
+__claude_code_package_name: 'claude-code'
+
+# Claude Code Homebrew cask for the chosen channel (macOS)
+__claude_code_cask_name: "{{ 'claude-code' if claude_code_channel == 'stable' else 'claude-code@latest' }}"

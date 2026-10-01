@@ -1,0 +1,13 @@
+---
+- name: Install Claude Code cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __claude_code_cask_name }}"
+    state: "{{ claude_code_package_state }}"
+  become: false
+
+- name: Install Claude Desktop cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ claude_desktop_cask_name }}"
+    state: "{{ claude_desktop_package_state }}"
+  become: false
+  when: claude_desktop_install | bool

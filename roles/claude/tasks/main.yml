@@ -1,0 +1,5 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.claude
+
+- name: "Install Claude for {{ ansible_facts['os_family'] }}"
+  ansible.builtin.include_tasks: "install_{{ ansible_facts['os_family'] | lower }}.yml"

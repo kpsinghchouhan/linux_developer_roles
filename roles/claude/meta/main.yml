@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Krishana Pal Singh Chouhan
+  description: Install Claude Code on Ubuntu and macOS, and Claude Desktop on macOS.
+  company: kpsinghchouhan
+  license: GPL-2.0-or-later
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: MacOSX
+      versions:
+        - all
+
+  galaxy_tags:
+    - claude
+    - anthropic
+    - ai
+    - developer
+    - ubuntu
+    - macos
+
+dependencies: []
