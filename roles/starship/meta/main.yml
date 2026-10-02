@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Krishana Pal Singh Chouhan
+  description: Install the starship prompt on Ubuntu and macOS and manage its config file.
+  company: kpsinghchouhan
+  license: GPL-2.0-or-later
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: MacOSX
+      versions:
+        - all
+
+  galaxy_tags:
+    - starship
+    - prompt
+    - shell
+    - developer
+    - ubuntu
+    - macos
+
+dependencies: []

@@ -1,0 +1,6 @@
+---
+- name: Install starship package with Homebrew
+  community.general.homebrew:
+    name: "{{ __starship_package_name }}"
+    state: "{{ starship_package_state }}"
+  become: false

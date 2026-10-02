@@ -1,0 +1,51 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Create a temporary home directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: starship_role
+  register: __starship_test_home
+
+- name: Run the tests
+  block:
+    - name: Apply the starship role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.starship
+      vars:
+        starship_config_home: "{{ __starship_test_home['path'] }}"
+
+    - name: Run starship --version
+      ansible.builtin.command: starship --version
+      register: __starship_test_version
+      changed_when: false
+
+    - name: Assert that starship is installed
+      ansible.builtin.assert:
+        that:
+          - "__starship_test_version['stdout'] is match('starship ')"
+
+    - name: Read the config and rc files
+      ansible.builtin.slurp:
+        src: "{{ __starship_test_home['path'] }}/{{ item }}"
+      register: __starship_test_files
+      loop:
+        - .config/starship.toml
+        - .bashrc
+        - .zshrc
+
+    - name: Assert that the config and rc files have the expected content
+      ansible.builtin.assert:
+        that:
+          - "'[character]' in __starship_test_files['results'][0]['content'] | b64decode"
+          - "'eval \"$(starship init bash)\"' in __starship_test_files['results'][1]['content'] | b64decode"
+          - "'eval \"$(starship init zsh)\"' in __starship_test_files['results'][2]['content'] | b64decode"
+
+  always:
+    - name: Remove the temporary home directory
+      ansible.builtin.file:
+        path: "{{ __starship_test_home['path'] }}"
+        state: absent
