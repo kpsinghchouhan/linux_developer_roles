@@ -1,0 +1,13 @@
+# Default starship config from kpsinghchouhan.linux_developer_roles.starship
+# See https://starship.rs/config/ for all options.
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Print a blank line between shell prompts
+add_newline = true
+
+# Milliseconds to wait for commands that starship runs
+command_timeout = 1000
+
+[character]
+success_symbol = '[>](bold green)'
+error_symbol = '[>](bold red)'

@@ -1,0 +1,19 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.starship
+
+# Starship release from GitHub (Ubuntu): 'latest' or a version such as '1.23.0'
+starship_version: 'latest'
+starship_install_dir: '/usr/local/bin'
+
+# Package state (macOS): 'present' or 'latest'
+starship_package_state: 'present'
+
+# Config file: a file in the role's files/ directory, or a path on the controller
+starship_config_src: 'starship.toml'
+starship_config_home: "{{ ansible_facts['env']['HOME'] }}"
+starship_config_mode: '0644'
+
+# Shells whose rc file gets the starship init line
+starship_shells:
+  - bash
+  - zsh

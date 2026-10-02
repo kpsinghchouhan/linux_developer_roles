@@ -1,0 +1,23 @@
+---
+- name: Get the installed starship version
+  ansible.builtin.command: "{{ starship_install_dir }}/starship --version"
+  register: __starship_installed
+  failed_when: false
+  changed_when: false
+  check_mode: false
+
+- name: Install starship from the GitHub release
+  ansible.builtin.unarchive:
+    src: "{{ __starship_download_url }}"
+    dest: "{{ starship_install_dir }}"
+    remote_src: true
+    include:
+      - starship
+    owner: root
+    group: root
+    mode: '0755'
+  become: true
+  when: >-
+    __starship_installed['rc'] != 0 or
+    (starship_version != 'latest' and
+     'starship ' ~ starship_version not in __starship_installed['stdout'])

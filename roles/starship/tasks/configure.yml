@@ -1,0 +1,26 @@
+---
+- name: Create the .config directory
+  ansible.builtin.file:
+    path: "{{ starship_config_home }}/.config"
+    state: directory
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+    mode: '0755'
+
+- name: Copy starship.toml
+  ansible.builtin.copy:
+    src: "{{ starship_config_src }}"
+    dest: "{{ starship_config_home }}/.config/starship.toml"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+    mode: "{{ starship_config_mode }}"
+
+- name: Enable starship in the shell rc files
+  ansible.builtin.lineinfile:
+    path: "{{ starship_config_home }}/.{{ item }}rc"
+    line: 'eval "$(starship init {{ item }})"'
+    create: true
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+    mode: '0644'
+  loop: "{{ starship_shells }}"

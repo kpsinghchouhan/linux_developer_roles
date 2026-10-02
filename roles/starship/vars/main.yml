@@ -1,0 +1,12 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.starship
+
+# GitHub release asset for the host architecture (Ubuntu)
+__starship_target: "{{ ansible_facts['architecture'] }}-unknown-linux-musl"
+__starship_release_url: 'https://github.com/starship/starship/releases'
+__starship_download_url: >-
+  {{ __starship_release_url }}/{{ 'latest/download' if starship_version == 'latest'
+  else 'download/v' ~ starship_version }}/starship-{{ __starship_target }}.tar.gz
+
+# Starship package name (macOS)
+__starship_package_name: 'starship'
