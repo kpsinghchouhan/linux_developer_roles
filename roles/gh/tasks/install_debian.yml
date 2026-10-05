@@ -2,27 +2,16 @@
 - name: Install GitHub CLI from the GitHub apt repository
   become: true
   block:
-    - name: Create the apt keyrings directory
-      ansible.builtin.file:
-        path: "{{ gh_apt_keyring_path | dirname }}"
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
-
-    - name: Download the GitHub CLI archive keyring
-      ansible.builtin.get_url:
-        url: "{{ gh_apt_keyring_url }}"
-        dest: "{{ gh_apt_keyring_path }}"
-        owner: root
-        group: root
-        mode: '0644'
-
     - name: Add the GitHub CLI apt repository
-      ansible.builtin.apt_repository:
-        repo: "deb [signed-by={{ gh_apt_keyring_path }}] {{ gh_apt_repo_url }} stable main"
-        filename: github-cli
+      ansible.builtin.deb822_repository:
+        name: "{{ gh_apt_repo_name }}"
         state: present
+        types: deb
+        uris: "{{ gh_apt_repo_url }}"
+        suites: "{{ gh_apt_repo_channel }}"
+        components:
+          - main
+        signed_by: "{{ gh_apt_keyring_url }}"
 
     - name: Install GitHub CLI package
       ansible.builtin.apt:
