@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.visual_studio_code
+
+# Visual Studio Code cask name
+__visual_studio_code_cask_name: 'visual-studio-code'

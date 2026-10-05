@@ -1,0 +1,10 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.nerd_font
+
+# Nerd Fonts to install, by Homebrew cask name without the 'font-' prefix
+# and '-nerd-font' suffix. For example 'fira-code' installs 'font-fira-code-nerd-font'.
+nerd_font_fonts:
+  - hack
+
+# Package state: 'present' or 'latest'
+nerd_font_package_state: 'present'

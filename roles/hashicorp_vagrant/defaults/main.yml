@@ -1,0 +1,8 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.hashicorp_vagrant
+
+# Package state: 'present' or 'latest'
+hashicorp_vagrant_package_state: 'present'
+
+# Password for the sudo prompt of the cask's .pkg installer. Not set by default.
+# hashicorp_vagrant_sudo_password: "{{ ansible_become_password }}"

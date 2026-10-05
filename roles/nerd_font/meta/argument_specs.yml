@@ -1,0 +1,23 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.nerd_font
+
+argument_specs:
+  main:
+    short_description: Install Nerd Fonts on macOS.
+    description:
+      - Installs Nerd Fonts with Homebrew casks on macOS. Other platforms are not supported.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      nerd_font_fonts:
+        type: list
+        elements: str
+        description:
+          - Nerd Fonts to install, by Homebrew cask name without the 'font-' prefix and '-nerd-font' suffix.
+          - For example 'fira-code' installs the 'font-fira-code-nerd-font' cask.
+        default: ["fira-code"]
+      nerd_font_package_state:
+        type: str
+        description: State of the font casks. Use 'latest' to upgrade existing fonts.
+        choices: ["present", "latest"]
+        default: "present"

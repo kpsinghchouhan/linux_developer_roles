@@ -1,0 +1,16 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.adobe_acrobat_reader
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The adobe_acrobat_reader role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+- name: Install Adobe Acrobat Reader cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __adobe_acrobat_reader_cask_name }}"
+    state: "{{ adobe_acrobat_reader_package_state }}"
+    sudo_password: "{{ ansible_become_password | default(omit) }}"
+  become: false

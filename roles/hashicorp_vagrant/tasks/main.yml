@@ -1,0 +1,16 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.hashicorp_vagrant
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The hashicorp_vagrant role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+- name: Install Vagrant cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __hashicorp_vagrant_cask_name }}"
+    state: "{{ hashicorp_vagrant_package_state }}"
+    sudo_password: "{{ hashicorp_vagrant_sudo_password | default(omit) }}"
+  become: false

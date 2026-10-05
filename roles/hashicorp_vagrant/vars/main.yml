@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.hashicorp_vagrant
+
+# Vagrant cask name
+__hashicorp_vagrant_cask_name: 'vagrant'

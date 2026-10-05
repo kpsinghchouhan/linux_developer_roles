@@ -1,0 +1,18 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.google_drive
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The google_drive role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+# The cask is marked auto_updates, so Homebrew only upgrades it with --greedy
+- name: Install Google Drive cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __google_drive_cask_name }}"
+    state: "{{ google_drive_package_state }}"
+    greedy: "{{ google_drive_package_state == 'latest' }}"
+    sudo_password: "{{ google_drive_sudo_password | default(omit) }}"
+  become: false

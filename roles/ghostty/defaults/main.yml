@@ -1,0 +1,10 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.ghostty
+
+# Package state: 'present' or 'latest'
+ghostty_package_state: 'present'
+
+# Config file: a file in the role's files/ directory, or a path on the controller
+ghostty_config_src: 'config'
+ghostty_config_home: "{{ ansible_facts['env']['HOME'] }}"
+ghostty_config_mode: '0644'

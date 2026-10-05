@@ -1,0 +1,8 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.adobe_acrobat_reader
+
+# Package state: 'present' or 'latest'
+adobe_acrobat_reader_package_state: 'present'
+
+# Password for the sudo prompt of the cask's .pkg installer. Not set by default.
+# adobe_acrobat_reader_sudo_password: "{{ ansible_become_password }}"

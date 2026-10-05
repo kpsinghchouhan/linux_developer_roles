@@ -1,0 +1,31 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.ghostty
+
+argument_specs:
+  main:
+    short_description: Install the Ghostty terminal on macOS and manage ~/.config/ghostty/config.
+    description:
+      - Installs Ghostty with a Homebrew cask on macOS. Other platforms are not supported.
+      - Copies the Ghostty config file to ~/.config/ghostty/config for the connecting user.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      ghostty_package_state:
+        type: str
+        description: State of the Homebrew cask. Use 'latest' to upgrade an existing install.
+        choices: ["present", "latest"]
+        default: "present"
+      ghostty_config_src:
+        type: str
+        description:
+          - Source of the Ghostty config file. A file name in the role's files/ directory, or a path on the controller.
+        default: "config"
+      ghostty_config_home:
+        type: str
+        description:
+          - Home directory that gets .config/ghostty/config.
+          - Defaults to the connecting user's HOME.
+      ghostty_config_mode:
+        type: str
+        description: File mode of the Ghostty config file.
+        default: "0644"

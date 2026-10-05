@@ -1,0 +1,17 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.notion
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The notion role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+# The cask is marked auto_updates, so Homebrew only upgrades it with --greedy
+- name: Install Notion cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __notion_cask_name }}"
+    state: "{{ notion_package_state }}"
+    greedy: "{{ notion_package_state == 'latest' }}"
+  become: false

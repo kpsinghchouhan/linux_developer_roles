@@ -1,0 +1,70 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Create a temporary home directory
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: ghostty_role
+      register: __ghostty_test_home
+
+    - name: Apply the ghostty role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.ghostty
+      vars:
+        ghostty_config_home: "{{ __ghostty_test_home['path'] }}"
+
+    - name: List the installed Ghostty cask
+      ansible.builtin.command: brew list --cask ghostty
+      register: __ghostty_test_cask
+      changed_when: false
+
+    - name: Assert that Ghostty is installed
+      ansible.builtin.assert:
+        that:
+          - "'Ghostty.app' in __ghostty_test_cask['stdout']"
+
+    - name: Read the config file
+      ansible.builtin.slurp:
+        src: "{{ __ghostty_test_home['path'] }}/.config/ghostty/config"
+      register: __ghostty_test_config
+
+    - name: Assert that the config file has the expected content
+      ansible.builtin.assert:
+        that:
+          - "'font-size = 14' in __ghostty_test_config['content'] | b64decode"
+
+    - name: Validate the config file with Ghostty
+      ansible.builtin.command: >-
+        /Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config
+        --config-file={{ __ghostty_test_home['path'] }}/.config/ghostty/config
+      changed_when: false
+
+  always:
+    - name: Remove the temporary home directory
+      ansible.builtin.file:
+        path: "{{ __ghostty_test_home['path'] }}"
+        state: absent
+      when: __ghostty_test_home['path'] is defined
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the ghostty role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.ghostty
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The ghostty role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

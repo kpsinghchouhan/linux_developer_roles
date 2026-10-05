@@ -1,0 +1,5 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.google_chrome
+
+# Package state: 'present' or 'latest'
+google_chrome_package_state: 'present'

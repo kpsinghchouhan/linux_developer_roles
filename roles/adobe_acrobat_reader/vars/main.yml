@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.adobe_acrobat_reader
+
+# Adobe Acrobat Reader cask name
+__adobe_acrobat_reader_cask_name: 'adobe-acrobat-reader'

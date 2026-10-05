@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Krishana Pal Singh Chouhan
+  description: Install the Notion desktop app on macOS.
+  company: kpsinghchouhan
+  license: GPL-2.0-or-later
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: MacOSX
+      versions:
+        - all
+
+  galaxy_tags:
+    - notion
+    - notes
+    - productivity
+    - macos
+
+dependencies: []

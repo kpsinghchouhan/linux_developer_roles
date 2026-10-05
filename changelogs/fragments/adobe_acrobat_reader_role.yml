@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - adobe_acrobat_reader - new role to install Adobe Acrobat Reader with a Homebrew cask on macOS.

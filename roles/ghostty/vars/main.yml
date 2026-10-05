@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.ghostty
+
+# Ghostty Homebrew cask name
+__ghostty_cask_name: 'ghostty'

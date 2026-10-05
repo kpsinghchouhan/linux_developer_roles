@@ -1,0 +1,41 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Apply the google_drive role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.google_drive
+      vars:
+        google_drive_sudo_password: "{{ ansible_become_password | default(omit) }}"
+
+    - name: Find the Google Drive app
+      ansible.builtin.stat:
+        path: /Applications/Google Drive.app
+      register: __google_drive_test_app
+
+    - name: Assert that Google Drive is installed
+      ansible.builtin.assert:
+        that:
+          - __google_drive_test_app['stat']['exists']
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the google_drive role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.google_drive
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The google_drive role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

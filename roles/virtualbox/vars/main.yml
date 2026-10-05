@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.virtualbox
+
+# VirtualBox cask name
+__virtualbox_cask_name: 'virtualbox'

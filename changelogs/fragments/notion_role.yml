@@ -1,0 +1,3 @@
+---
+minor_changes:
+  - notion - new role to install the Notion desktop app with a Homebrew cask on macOS.

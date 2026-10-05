@@ -1,0 +1,16 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.nerd_font
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The nerd_font role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+- name: Install Nerd Font casks with Homebrew
+  community.general.homebrew_cask:
+    name: "font-{{ item }}-nerd-font"
+    state: "{{ nerd_font_package_state }}"
+  become: false
+  loop: "{{ nerd_font_fonts }}"

@@ -1,0 +1,18 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.visual_studio_code
+
+argument_specs:
+  main:
+    short_description: Install Visual Studio Code on macOS.
+    description:
+      - Installs Visual Studio Code with a Homebrew cask on macOS. Other platforms are not supported.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      visual_studio_code_package_state:
+        type: str
+        description:
+          - State of the cask. Use 'latest' to upgrade an existing install through Homebrew.
+          - Visual Studio Code also updates itself, so 'present' is enough for most hosts.
+        choices: ["present", "latest"]
+        default: "present"

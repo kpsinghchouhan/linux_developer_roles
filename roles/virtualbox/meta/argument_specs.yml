@@ -1,0 +1,22 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.virtualbox
+
+argument_specs:
+  main:
+    short_description: Install Oracle VirtualBox on macOS.
+    description:
+      - Installs VirtualBox with a Homebrew cask on macOS. Other platforms are not supported.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      virtualbox_package_state:
+        type: str
+        description: State of the cask. Use 'latest' to upgrade an existing install.
+        choices: ["present", "latest"]
+        default: "present"
+      virtualbox_sudo_password:
+        type: str
+        description:
+          - Password for the sudo prompt of the cask's .pkg installer.
+          - Not needed if the user has passwordless sudo.
+        no_log: true

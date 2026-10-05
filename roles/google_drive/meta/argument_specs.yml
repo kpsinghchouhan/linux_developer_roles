@@ -1,0 +1,24 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.google_drive
+
+argument_specs:
+  main:
+    short_description: Install Google Drive for desktop on macOS.
+    description:
+      - Installs Google Drive for desktop with a Homebrew cask on macOS. Other platforms are not supported.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      google_drive_package_state:
+        type: str
+        description:
+          - State of the cask. Use 'latest' to upgrade an existing install through Homebrew.
+          - Google Drive also updates itself, so 'present' is enough for most hosts.
+        choices: ["present", "latest"]
+        default: "present"
+      google_drive_sudo_password:
+        type: str
+        description:
+          - Password for the sudo prompt of the cask's .pkg installer.
+          - Not needed if the user has passwordless sudo.
+        no_log: true

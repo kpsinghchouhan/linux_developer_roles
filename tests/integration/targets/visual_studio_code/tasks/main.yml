@@ -1,0 +1,48 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Apply the visual_studio_code role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.visual_studio_code
+
+    - name: Find the Visual Studio Code app
+      ansible.builtin.stat:
+        path: /Applications/Visual Studio Code.app
+      register: __visual_studio_code_test_app
+
+    - name: Run code --version
+      ansible.builtin.command:
+        argv:
+          - /Applications/Visual Studio Code.app/Contents/Resources/app/bin/code
+          - --version
+      register: __visual_studio_code_test_version
+      changed_when: false
+
+    - name: Assert that Visual Studio Code is installed
+      ansible.builtin.assert:
+        that:
+          - __visual_studio_code_test_app['stat']['exists']
+          - "__visual_studio_code_test_version['stdout_lines'][0] is match('[0-9]+[.][0-9]+')"
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the visual_studio_code role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.visual_studio_code
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The visual_studio_code role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

@@ -1,0 +1,8 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.google_drive
+
+# Package state: 'present' or 'latest'
+google_drive_package_state: 'present'
+
+# Password for the sudo prompt of the cask's .pkg installer. Not set by default.
+# google_drive_sudo_password: "{{ ansible_become_password }}"

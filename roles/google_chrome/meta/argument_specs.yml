@@ -1,0 +1,18 @@
+---
+# argument spec file for kpsinghchouhan.linux_developer_roles.google_chrome
+
+argument_specs:
+  main:
+    short_description: Install Google Chrome on macOS.
+    description:
+      - Installs Google Chrome with a Homebrew cask on macOS. Other platforms are not supported.
+    author:
+      - Krishana Pal Singh Chouhan
+    options:
+      google_chrome_package_state:
+        type: str
+        description:
+          - State of the cask. Use 'latest' to upgrade an existing install through Homebrew.
+          - Chrome also updates itself, so 'present' is enough for most hosts.
+        choices: ["present", "latest"]
+        default: "present"

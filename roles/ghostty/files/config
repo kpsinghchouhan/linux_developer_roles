@@ -1,0 +1,18 @@
+# Default Ghostty config from kpsinghchouhan.linux_developer_roles.ghostty
+# See https://ghostty.org/docs/config/reference for all options.
+
+font-size = 14
+
+# Space in points between the window edge and the terminal grid
+window-padding-x = 8
+window-padding-y = 8
+
+cursor-style = block
+
+# Copy selected text to the system clipboard
+copy-on-select = clipboard
+
+# Use the Option key as Alt, for shell shortcuts such as Alt+B and Alt+F
+macos-option-as-alt = true
+
+shell-integration = detect
