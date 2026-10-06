@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.google_drive
+
+# Google Drive cask name
+__google_drive_cask_name: 'google-drive'

@@ -1,0 +1,4 @@
+---
+minor_changes:
+  - ghostty - new role to install the Ghostty terminal with a Homebrew cask on macOS
+    and copy ``~/.config/ghostty/config``.

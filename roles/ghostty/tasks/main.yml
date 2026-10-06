@@ -1,0 +1,18 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.ghostty
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The ghostty role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+- name: Install Ghostty cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __ghostty_cask_name }}"
+    state: "{{ ghostty_package_state }}"
+  become: false
+
+- name: "Configure ghostty for user {{ ansible_facts['user_id'] }}"
+  ansible.builtin.include_tasks: configure.yml

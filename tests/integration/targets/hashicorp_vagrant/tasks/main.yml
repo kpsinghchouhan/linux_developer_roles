@@ -1,0 +1,41 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Apply the hashicorp_vagrant role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.hashicorp_vagrant
+      vars:
+        hashicorp_vagrant_sudo_password: "{{ ansible_become_password | default(omit) }}"
+
+    - name: Run vagrant --version
+      ansible.builtin.command: /opt/vagrant/bin/vagrant --version
+      register: __hashicorp_vagrant_test_version
+      changed_when: false
+
+    - name: Assert that Vagrant is installed
+      ansible.builtin.assert:
+        that:
+          - "__hashicorp_vagrant_test_version['stdout'] is match('Vagrant ')"
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the hashicorp_vagrant role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.hashicorp_vagrant
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The hashicorp_vagrant role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

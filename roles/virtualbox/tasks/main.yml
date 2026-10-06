@@ -1,0 +1,16 @@
+---
+# tasks file for kpsinghchouhan.linux_developer_roles.virtualbox
+
+- name: Check that the host runs macOS
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['os_family'] == 'Darwin'
+    fail_msg: "The virtualbox role supports macOS only. This host is {{ ansible_facts['os_family'] }}."
+    quiet: true
+
+- name: Install VirtualBox cask with Homebrew
+  community.general.homebrew_cask:
+    name: "{{ __virtualbox_cask_name }}"
+    state: "{{ virtualbox_package_state }}"
+    sudo_password: "{{ virtualbox_sudo_password | default(omit) }}"
+  become: false

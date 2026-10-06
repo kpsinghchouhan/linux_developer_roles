@@ -1,0 +1,16 @@
+---
+- name: Create the Ghostty config directory
+  ansible.builtin.file:
+    path: "{{ ghostty_config_home }}/.config/ghostty"
+    state: directory
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+    mode: '0755'
+
+- name: Copy the Ghostty config file
+  ansible.builtin.copy:
+    src: "{{ ghostty_config_src }}"
+    dest: "{{ ghostty_config_home }}/.config/ghostty/config"
+    owner: "{{ ansible_facts['user_id'] }}"
+    group: "{{ ansible_facts['user_gid'] }}"
+    mode: "{{ ghostty_config_mode }}"

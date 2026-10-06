@@ -1,0 +1,5 @@
+---
+# vars file for kpsinghchouhan.linux_developer_roles.google_chrome
+
+# Google Chrome cask name
+__google_chrome_cask_name: 'google-chrome'

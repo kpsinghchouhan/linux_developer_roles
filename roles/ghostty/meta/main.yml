@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Krishana Pal Singh Chouhan
+  description: Install the Ghostty terminal on macOS and manage its config file.
+  company: kpsinghchouhan
+  license: GPL-2.0-or-later
+  min_ansible_version: "2.15"
+
+  platforms:
+    - name: MacOSX
+      versions:
+        - all
+
+  galaxy_tags:
+    - ghostty
+    - terminal
+    - developer
+    - macos
+
+dependencies: []

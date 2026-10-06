@@ -9,5 +9,6 @@ gh_package_state: 'present'
 
 # GitHub CLI apt repository (Ubuntu)
 gh_apt_keyring_url: 'https://cli.github.com/packages/githubcli-archive-keyring.gpg'
-gh_apt_keyring_path: '/etc/apt/keyrings/githubcli-archive-keyring.gpg'
 gh_apt_repo_url: 'https://cli.github.com/packages'
+gh_apt_repo_name: 'github-cli'
+gh_apt_repo_channel: 'stable'

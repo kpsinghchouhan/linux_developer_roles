@@ -1,0 +1,48 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Apply the zed role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.zed
+
+    - name: Find the Zed app
+      ansible.builtin.stat:
+        path: /Applications/Zed.app
+      register: __zed_test_app
+
+    - name: Run zed --version
+      ansible.builtin.command:
+        argv:
+          - /Applications/Zed.app/Contents/MacOS/cli
+          - --version
+      register: __zed_test_version
+      changed_when: false
+
+    - name: Assert that Zed is installed
+      ansible.builtin.assert:
+        that:
+          - __zed_test_app['stat']['exists']
+          - "__zed_test_version['stdout'] is match('Zed ')"
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the zed role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.zed
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The zed role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

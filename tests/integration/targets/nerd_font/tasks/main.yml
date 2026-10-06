@@ -1,0 +1,39 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Apply the nerd_font role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.nerd_font
+
+    - name: List the installed Nerd Font cask
+      ansible.builtin.command: brew list --cask font-fira-code-nerd-font
+      register: __nerd_font_test_cask
+      changed_when: false
+
+    - name: Assert that the Nerd Font is installed
+      ansible.builtin.assert:
+        that:
+          - "'FiraCodeNerdFont' in __nerd_font_test_cask['stdout']"
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the nerd_font role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.nerd_font
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The nerd_font role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

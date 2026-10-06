@@ -1,0 +1,39 @@
+---
+- name: Gather the facts the role needs
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Test the role on macOS
+  when: ansible_facts['os_family'] == 'Darwin'
+  block:
+    - name: Apply the adobe_acrobat_reader role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.adobe_acrobat_reader
+
+    - name: Find the Adobe Acrobat Reader app
+      ansible.builtin.stat:
+        path: /Applications/Adobe Acrobat Reader.app
+      register: __adobe_acrobat_reader_test_app
+
+    - name: Assert that Adobe Acrobat Reader is installed
+      ansible.builtin.assert:
+        that:
+          - __adobe_acrobat_reader_test_app['stat']['exists']
+
+- name: Test the role on other platforms
+  when: ansible_facts['os_family'] != 'Darwin'
+  block:
+    - name: Apply the adobe_acrobat_reader role
+      ansible.builtin.include_role:
+        name: kpsinghchouhan.linux_developer_roles.adobe_acrobat_reader
+
+    - name: Fail because the role did not fail
+      ansible.builtin.fail:
+        msg: The adobe_acrobat_reader role should fail on platforms other than macOS.
+
+  rescue:
+    - name: Assert that the role failed because the platform is not macOS
+      ansible.builtin.assert:
+        that:
+          - "'supports macOS only' in ansible_failed_result['msg']"

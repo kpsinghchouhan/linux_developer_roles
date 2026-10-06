@@ -1,0 +1,5 @@
+---
+# defaults file for kpsinghchouhan.linux_developer_roles.visual_studio_code
+
+# Package state: 'present' or 'latest'
+visual_studio_code_package_state: 'present'
